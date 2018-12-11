@@ -1,0 +1,30 @@
+{
+  "name": "@starbase/client",
+  "version": "0.0.1",
+  "description": "Starbase Channels Client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/starbasealpha/client.git"
+  },
+  "keywords": [
+    "Starbase",
+    "Channels",
+    "Client",
+    "API",
+    "library",
+    "database"
+  ],
+  "author": "Mike Fuller",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/starbasealpha/client/issues"
+  },
+  "homepage": "https://github.com/starbasealpha/client#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}

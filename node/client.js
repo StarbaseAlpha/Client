@@ -29,11 +29,14 @@ function Client(serverPath) {
     }
     let path = channel + slash + key;
 
+    let dsPath = '!' + channel + '!' + key;
+
     return {
       "path": path,
       "channel": channel,
       "key": key,
-      "slash": slash
+      "slash": slash,
+      "dsPath": dsPath
     };
   };
 
@@ -63,6 +66,9 @@ function Client(serverPath) {
         },
         "body":JSON.stringify(body)
       },(err,response,body)=>{
+        if (err) {
+          return reject({"code":400, "message":err.message||err.toString()||"Error!"});
+        }
         if (response.statusCode > 399) {
           reject(JSON.parse(body));
         } else {
@@ -135,6 +141,10 @@ function Client(serverPath) {
 
       "list": (query) => {
         return List(parsedPath, query);
+      },
+
+      "parse": (path=null) => {
+        return ParsePath((path||parsedPath).toString());
       },
 
       "path": (path) => {

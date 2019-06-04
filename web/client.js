@@ -27,11 +27,14 @@ function Client(serverPath) {
     }
     let path = channel + slash + key;
 
+    let dsPath = '!' + channel + '!' + key;
+
     return {
       "path": path,
       "channel": channel,
       "key": key,
-      "slash": slash
+      "slash": slash,
+      "dsPath": dsPath
     };
   };
 
@@ -67,6 +70,8 @@ function Client(serverPath) {
         } else {
           return resolve(result);
         }
+      }).catch(err => {
+        return reject({"code":500,"message":err.message||err.toString()||"Error!"});
       });
     });
   };
@@ -134,6 +139,10 @@ function Client(serverPath) {
 
       "list": (query) => {
         return List(parsedPath, query);
+      },
+
+      "parse": (path=null) => {
+        return ParsePath((path||parsedPath).toString());
       },
 
       "path": (path) => {

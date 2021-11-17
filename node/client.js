@@ -1,8 +1,5 @@
 'use strict';
 
-//const Request = require('request');
-const fetch = require('node-fetch');
-
 function Client(serverPath) {
 
   const ParsePath = (requestPath) => {
@@ -59,6 +56,8 @@ function Client(serverPath) {
       body.method = req.method || null;
       body.data = req.data || null;
       body.token = req.token || token || null;
+
+      const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
       return fetch(serverPath,{
         "method":"POST",

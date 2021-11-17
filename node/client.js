@@ -1,6 +1,7 @@
 'use strict';
 
-const Request = require('request');
+//const Request = require('request');
+const fetch = require('node-fetch');
 
 function Client(serverPath) {
 
@@ -59,20 +60,19 @@ function Client(serverPath) {
       body.data = req.data || null;
       body.token = req.token || token || null;
 
-      return Request(serverPath,{
+      return fetch(serverPath,{
         "method":"POST",
         "headers":{
           "content-type":"application/json"
         },
         "body":JSON.stringify(body)
-      },(err,response,body)=>{
+      }).then(async response=>{
+        return resolve(await response.json());
+      }).catch((err)=>{
         if (err) {
           return reject({"code":400, "message":err.message||err.toString()||"Error!"});
-        }
-        if (response.statusCode > 399) {
-          reject(JSON.parse(body));
         } else {
-          resolve(JSON.parse(body));
+          return reject({"code":400,"message":"Error!"});
         }
       });
     });
